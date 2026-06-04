@@ -17,6 +17,11 @@ import type { Job } from "@/lib/types";
 const selectClass =
   "h-11 px-3 border border-white/20 bg-white/5 text-text-light text-sm rounded-md focus:outline-none focus:border-primary w-full";
 
+/** Careers page display only: no em/en dashes in role copy. */
+function careersDisplayText(text: string): string {
+  return text.replace(/\u2013|\u2014/g, " to ");
+}
+
 function jobMatchesSearch(job: Job, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
@@ -92,7 +97,7 @@ export function OpenRolesList({ jobs }: { jobs: Job[] }) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 mb-8">
+      <div className="flex flex-col gap-5 mb-6">
         <input
           type="search"
           placeholder="Search by role, team, or keyword..."
@@ -155,17 +160,24 @@ export function OpenRolesList({ jobs }: { jobs: Job[] }) {
           {filtered.map((job) => (
             <div
               key={job.slug}
-              className="border border-white/10 p-6 rounded-md bg-background-dark"
+              className="careers-reactive-card border border-white/10 p-6 rounded-md bg-background-dark"
             >
-              <h3 className="font-medium text-lg mb-1">{job.title}</h3>
+              <h3 className="font-medium text-lg mb-1">{careersDisplayText(job.title)}</h3>
               <p className="text-xs uppercase tracking-nav text-text-muted mb-3">
-                {job.department} · {job.location} · {job.workType}
+                {careersDisplayText(job.department)} · {careersDisplayText(job.location)} ·{" "}
+                {careersDisplayText(job.workType)}
               </p>
               {job.areaOfInterest && (
-                <p className="text-xs text-text-light/50 mb-3">{job.areaOfInterest}</p>
+                <p className="text-xs text-text-light/50 mb-3">
+                  {careersDisplayText(job.areaOfInterest)}
+                </p>
               )}
-              <p className="text-sm text-text-light/70 mb-4">{job.shortDescription}</p>
-              <p className="text-xs text-text-muted mb-4">{job.experience}</p>
+              <p className="text-sm text-text-light/70 mb-4">
+                {careersDisplayText(job.shortDescription)}
+              </p>
+              <p className="text-xs text-text-muted mb-4">
+                {careersDisplayText(job.experience)}
+              </p>
               <Link
                 href={`/careers/${job.slug}`}
                 className="text-sm uppercase tracking-nav text-primary"

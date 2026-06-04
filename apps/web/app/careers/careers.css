@@ -1,0 +1,179 @@
+/* Distinct section surfaces (careers page only) */
+.careers-page .careers-band--hero {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-primary) 22%, white) 0%,
+    #ffffff 45%,
+    color-mix(in srgb, var(--color-secondary) 14%, white) 100%
+  );
+}
+
+.careers-page .careers-band--philosophy {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-secondary) 28%, white) 0%,
+    color-mix(in srgb, var(--color-secondary) 12%, white) 100%
+  );
+}
+
+.careers-page .careers-band--values {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-primary) 32%, white) 0%,
+    color-mix(in srgb, var(--color-primary) 14%, white) 100%
+  );
+}
+
+.careers-page .careers-band--principles {
+  background: linear-gradient(
+    180deg,
+    #f8f9fc 0%,
+    color-mix(in srgb, var(--color-secondary) 8%, white) 100%
+  );
+  border-top: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 12%, transparent);
+}
+
+.careers-page .careers-band--life {
+  background: linear-gradient(
+    160deg,
+    var(--color-background-blue) 0%,
+    color-mix(in srgb, var(--color-primary) 65%, var(--color-background-blue)) 100%
+  );
+}
+
+.careers-page .careers-band--roles {
+  background: linear-gradient(
+    180deg,
+    #0d0d0d 0%,
+    var(--color-background-dark) 40%,
+    color-mix(in srgb, var(--color-secondary) 55%, var(--color-background-dark)) 100%
+  );
+}
+
+.careers-page .careers-ambient {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(64px);
+  opacity: 0.65;
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.65s ease;
+}
+
+.careers-page .careers-band:hover .careers-ambient,
+.careers-page .careers-band:focus-within .careers-ambient {
+  opacity: 0.95;
+  transform: scale(1.05);
+}
+
+.careers-ambient--hero {
+  width: min(45vw, 360px);
+  height: 220px;
+  top: 0;
+  right: -5%;
+  background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.careers-ambient--philosophy {
+  width: min(40vw, 320px);
+  height: 200px;
+  bottom: 0;
+  left: -4%;
+  background: color-mix(in srgb, var(--color-secondary) 40%, transparent);
+}
+
+.careers-ambient--values {
+  width: min(42vw, 340px);
+  height: 180px;
+  top: 10%;
+  right: 5%;
+  background: color-mix(in srgb, var(--color-primary) 38%, transparent);
+}
+
+.careers-ambient--principles {
+  width: min(38vw, 300px);
+  height: 160px;
+  top: 0;
+  left: 40%;
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+.careers-ambient--life {
+  width: min(50vw, 400px);
+  height: 200px;
+  bottom: 0;
+  right: 0;
+  background: color-mix(in srgb, white 18%, transparent);
+}
+
+.careers-ambient--roles {
+  width: min(44vw, 360px);
+  height: 200px;
+  top: 0;
+  left: -4%;
+  background: color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+
+.careers-reactive-cell {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.careers-page .careers-reactive-cell:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.careers-page .careers-band--life .careers-reactive-cell:hover {
+  background-color: color-mix(in srgb, white 8%, transparent);
+}
+
+.careers-page .careers-band--life .careers-reactive-cell:hover h3 {
+  color: white;
+}
+
+.careers-page .careers-reactive-cell:hover h3 {
+  color: var(--color-primary);
+}
+
+.careers-reactive-card {
+  transition:
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.careers-page .careers-reactive-card:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+  background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-background-dark));
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px color-mix(in srgb, black 35%, transparent);
+}
+
+.careers-page .careers-band--life .careers-reactive-card:hover {
+  background-color: color-mix(in srgb, white 10%, var(--color-background-blue));
+  border-color: color-mix(in srgb, white 35%, transparent);
+}
+
+.careers-reactive-prose {
+  transition: transform 0.45s ease;
+}
+
+.careers-page .careers-band:hover .careers-reactive-prose {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .careers-page .careers-ambient,
+  .careers-page .careers-band:hover .careers-ambient,
+  .careers-reactive-cell,
+  .careers-reactive-card,
+  .careers-reactive-prose,
+  .careers-page .careers-band:hover .careers-reactive-prose {
+    transition: none;
+    transform: none;
+  }
+}

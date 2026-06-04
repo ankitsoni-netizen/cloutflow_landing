@@ -7,6 +7,7 @@ export function PageHero({
   children,
   dark = false,
   className,
+  decoration,
 }: {
   eyebrow?: string;
   title: string;
@@ -14,16 +15,18 @@ export function PageHero({
   children?: React.ReactNode;
   dark?: boolean;
   className?: string;
+  decoration?: React.ReactNode;
 }) {
   return (
     <section
       className={cn(
-        "section-y-lg min-h-[480px] flex items-center",
+        "section-y-lg min-h-[480px] flex items-center relative overflow-hidden",
         dark ? "bg-background-blue text-text-light" : "bg-background-page",
         className
       )}
     >
-      <div className="container-page max-w-3xl">
+      {decoration}
+      <div className="container-page max-w-3xl relative z-10">
         {eyebrow && (
           <p className="text-xs uppercase tracking-nav text-text-muted mb-4">
             {eyebrow}

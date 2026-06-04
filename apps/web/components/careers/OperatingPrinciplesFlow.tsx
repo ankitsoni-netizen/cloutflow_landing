@@ -1,3 +1,4 @@
+import { CareersSection } from "@/components/careers/CareersSection";
 import {
   operatingPrinciples,
   type PrincipleIcon,
@@ -11,7 +12,7 @@ function PrincipleIconSvg({
   icon: PrincipleIcon;
   className?: string;
 }) {
-  const shared = cn("h-6 w-6", className);
+  const shared = cn("h-4 w-4", className);
   switch (icon) {
     case "businessProblem":
       return (
@@ -189,7 +190,7 @@ function PrincipleIconSvg({
   }
 }
 
-function PrincipleNode({
+function PrincipleItem({
   label,
   description,
   icon,
@@ -199,62 +200,47 @@ function PrincipleNode({
   icon: PrincipleIcon;
 }) {
   return (
-    <div
-      className={cn(
-        "flex w-[min(68vw,168px)] shrink-0 snap-center flex-col items-center text-center sm:w-[168px]"
-      )}
-    >
-      <div className="flex h-14 w-14 items-center justify-center rounded-md border border-border-light bg-background-soft text-primary">
-        <PrincipleIconSvg icon={icon} />
+    <div className="group flex gap-2.5 md:gap-3 min-w-0">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border-light bg-background-soft text-primary transition-colors group-hover:border-primary/50 group-hover:bg-primary/5">
+        <PrincipleIconSvg icon={icon} className="h-4 w-4" />
       </div>
-      <h3 className="mt-4 text-sm font-medium uppercase tracking-nav text-text-primary">
-        {label}
-      </h3>
-      <p className="mt-2 text-xs text-text-secondary leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
-function Connector() {
-  return (
-    <div
-      className="flex shrink-0 items-start self-start pt-7 text-border-light"
-      aria-hidden
-    >
-      <svg viewBox="0 0 24 12" className="h-3 w-6" fill="none">
-        <path
-          d="M0 6h16M12 2l6 4-6 4"
-          stroke="currentColor"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <div className="min-w-0">
+        <h3 className="text-[11px] md:text-xs font-medium uppercase tracking-nav text-text-primary leading-tight">
+          {label}
+        </h3>
+        <p className="mt-0.5 text-[10px] md:text-[11px] text-text-secondary leading-snug">
+          {description}
+        </p>
+      </div>
     </div>
   );
 }
 
 export function OperatingPrinciplesFlow() {
   return (
-    <section className="section-y bg-background-page overflow-hidden">
-      <div className="container-page">
-        <h2 className="text-2xl font-medium tracking-tightest mb-10">
-          Operating principles
-        </h2>
+    <CareersSection variant="principles">
+      <div className="container-page w-full">
+        <div className="lg:grid lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-x-12 xl:gap-x-16 lg:items-start">
+          <h2 className="text-xl md:text-2xl font-medium tracking-tightest mb-6 lg:mb-0">
+            Operating principles
+          </h2>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth [scrollbar-width:thin]">
-          {operatingPrinciples.map((principle, index) => (
-            <div key={principle.id} className="flex shrink-0 items-start">
-              <PrincipleNode
-                label={principle.label}
-                description={principle.description}
-                icon={principle.icon}
-              />
-              {index < operatingPrinciples.length - 1 && <Connector />}
-            </div>
-          ))}
+          <ol className="grid grid-cols-5 gap-x-2 sm:gap-x-4 md:gap-x-5 gap-y-0 list-none m-0 p-0">
+            {operatingPrinciples.map((principle) => (
+              <li
+                key={principle.id}
+                className="careers-reactive-cell border-t border-border-light py-3 md:py-4 rounded-sm"
+              >
+                <PrincipleItem
+                  label={principle.label}
+                  description={principle.description}
+                  icon={principle.icon}
+                />
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
-    </section>
+    </CareersSection>
   );
 }

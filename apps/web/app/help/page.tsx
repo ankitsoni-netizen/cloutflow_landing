@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
-import { Card } from "@/components/ui/Card";
-import { FaqAccordion } from "@/components/help/FaqAccordion";
+import { HelpFaqCenter } from "@/components/help/HelpFaqCenter";
 import { WhatsAppButton } from "@/components/help/WhatsAppButton";
 import { HelpTicketForm } from "@/components/forms/HelpTicketForm";
 import { faqs } from "@/data/faqs";
-import { HELP_TICKET_TYPES } from "@/lib/help-ticket-types";
 
 export const metadata: Metadata = {
   title: "Help Center",
@@ -22,30 +20,20 @@ export default function HelpPage() {
         title="How can we help you?"
         subtitle="Find answers, track campaign progress, explore the Cloutflow product, get creator support, or connect with the right team."
       />
-      <section className="section-y bg-background-page">
-        <div className="container-page">
+      <section className="section-y bg-background-page overflow-x-hidden">
+        <div className="container-page mb-12">
           <input
             type="search"
             placeholder="Search campaign tracking, creator payments, product demo, reporting, briefs..."
-            className="w-full max-w-2xl h-12 px-4 border border-border-light rounded-md mb-12"
+            className="w-full max-w-2xl h-12 px-4 border border-border-light rounded-md"
             aria-label="Search help center"
             readOnly
             title="Use FAQ sections and the form below"
           />
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-            {HELP_TICKET_TYPES.map((c) => (
-              <Card key={c.value} variant="light">
-                <h2 className="font-medium mb-2">{c.label}</h2>
-                <p className="text-sm text-text-secondary">{c.description}</p>
-              </Card>
-            ))}
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            <FaqAccordion items={brandFaqs} label="For Brands" />
-            <FaqAccordion items={creatorFaqs} label="For Creators" />
-          </div>
+        <div className="container-page">
+          <HelpFaqCenter brandFaqs={brandFaqs} creatorFaqs={creatorFaqs} />
         </div>
       </section>
 

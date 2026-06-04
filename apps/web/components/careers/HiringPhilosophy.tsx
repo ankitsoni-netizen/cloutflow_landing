@@ -1,13 +1,14 @@
+import { CareersSection } from "@/components/careers/CareersSection";
 import { hiringPhilosophy } from "@/data/hiring-philosophy";
 
 export function HiringPhilosophy() {
   return (
-    <section className="section-y bg-background-soft">
+    <CareersSection variant="philosophy">
       <div className="container-page max-w-3xl">
         <p className="text-xs uppercase tracking-nav text-text-muted mb-4">
           {hiringPhilosophy.eyebrow}
         </p>
-        <blockquote className="text-2xl md:text-3xl font-medium tracking-tightest text-text-primary leading-snug mb-8">
+        <blockquote className="careers-reactive-prose text-2xl md:text-3xl font-medium tracking-tightest text-text-primary leading-snug mb-6">
           {hiringPhilosophy.lead}
         </blockquote>
         <div className="space-y-5 text-text-secondary text-md leading-relaxed">
@@ -16,6 +17,6 @@ export function HiringPhilosophy() {
           ))}
         </div>
       </div>
-    </section>
+    </CareersSection>
   );
 }

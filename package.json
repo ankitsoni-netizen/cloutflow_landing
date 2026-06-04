@@ -1,0 +1,12 @@
+{
+  "name": "cloutflow",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @cloutflow/web",
+    "dev:web": "npm run dev -w @cloutflow/web",
+    "build": "npm run build -w @cloutflow/web"
+  }
+}

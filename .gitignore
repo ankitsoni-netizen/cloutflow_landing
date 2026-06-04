@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+*.db
+uploads
+apps/cms/.tmp
+apps/cms/.env
+dist
+.DS_Store

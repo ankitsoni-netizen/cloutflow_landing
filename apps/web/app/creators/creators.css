@@ -1,0 +1,39 @@
+/**
+ * Creators page typography: Inter (body, labels) + Neue Haas Grotesk (display).
+ * Replace CDN imports with self-hosted .woff2 files when licensed for production.
+ */
+@import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
+@import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-text-pro");
+
+.creators-page {
+  font-family: var(--font-body), "Inter", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.creators-page :is(h1, h2, h3, .font-display) {
+  font-family:
+    "Neue Haas Grotesk Display Pro",
+    "Neue Haas Grotesk Text Pro",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.creators-page .font-label {
+  font-family: var(--font-body), "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.creators-page .font-label-sm {
+  font-family: var(--font-body), "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

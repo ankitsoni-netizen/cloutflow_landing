@@ -1,0 +1,36 @@
+# Firebase App Hosting — monorepo (repo root). Next.js: apps/web
+
+runConfig:
+  minInstances: 0
+  memoryMiB: 1024
+
+scripts:
+  buildCommand: npm install && cd apps/web && npm run build
+  runCommand: cd apps/web && npm run start
+
+env:
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: https://landing-page-cf--dev-cloutflow-platform.asia-southeast1.hosted.app
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: PORT
+    value: "8080"
+    availability:
+      - RUNTIME
+  - variable: HOSTNAME
+    value: "0.0.0.0"
+    availability:
+      - RUNTIME
+  - variable: EMAIL_PROVIDER
+    value: resend
+    availability:
+      - RUNTIME
+  - variable: EMAIL_FROM
+    value: hello@cloutflow.com
+    availability:
+      - RUNTIME
+  - variable: EMAIL_TO
+    value: ankit.soni@cloutflow.com
+    availability:
+      - RUNTIME

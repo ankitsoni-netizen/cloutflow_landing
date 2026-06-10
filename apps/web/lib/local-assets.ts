@@ -1,6 +1,7 @@
 /** Local static assets under `public/` — no remote image hosts required at runtime. */
 
 export const CLOUTFLOW_LOGO_URL = "/brand/cloutflow-asset.png";
+export const CLOUTFLOW_LOGO_WHITE_URL = "/brand/cloutflow-logo-white.png";
 export const CLOUTFLOW_FAVICON_URL = "/brand/cloutflow-logo.png";
 
 export const brandLogos = {

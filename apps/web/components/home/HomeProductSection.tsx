@@ -40,6 +40,7 @@ const modules: { name: string; desc: string }[] = [
 export function HomeProductSection() {
   return (
     <section
+      data-nav-surface="blue"
       className={`${homeSection} bg-background-blue text-text-light`}
     >
       <div className="container-page grid lg:grid-cols-2 gap-12 items-center w-full">
@@ -55,7 +56,7 @@ export function HomeProductSection() {
           <ExploreCloutflowOsCta tone="dark" inkEffect={false} />
           <ul className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-5 list-none p-0 m-0">
             {modules.map((m) => (
-              <li key={m.name} className="border-t border-white/15 pt-4">
+              <li key={m.name} className="pt-4">
                 <p className="text-sm font-medium text-text-light">{m.name}</p>
                 <p className="text-xs text-text-light/65 mt-1 leading-relaxed">
                   {m.desc}

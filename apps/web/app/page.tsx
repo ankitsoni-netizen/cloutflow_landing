@@ -46,11 +46,17 @@ export default async function HomePage() {
       <WhatWeDo />
       <HomeProductSection />
 
-      <section className={`${homeSection} bg-background-page`}>
+      <section data-nav-surface="page" className={`${homeSection} bg-background-page`}>
         <div className="container-page w-full">
-          <h2 className="text-3xl font-medium tracking-tightest mb-8">
+          <h2 className="text-3xl font-medium tracking-tightest mb-4">
             Stories
           </h2>
+          <p className="text-text-secondary max-w-3xl mb-12">
+            See how Cloutflow partners with brands to solve real marketing
+            challenges through creators, culture, content, technology, and scale.
+            From category launches to sustained search and relevance, these are
+            campaigns built for business impact.
+          </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {stories.map((s) => (
               <HomeStoryCard key={s.slug} story={s} />
@@ -64,17 +70,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={`${homeSection} bg-secondary text-text-light`}>
+      <section data-nav-surface="secondary" className={`${homeSection} bg-secondary text-text-light`}>
         <div className="container-page w-full max-w-3xl">
           <h2 className="text-3xl font-medium tracking-tightest mb-4">
             For creators who want better briefs, better brands, and better
             growth.
           </h2>
-          <p className="text-text-light/80 mb-8 text-md">
+          <p className="text-text-light/80 max-w-3xl mb-6 text-md">
             Cloutflow works with creators as creative partners, not media
-            inventory. From brief clarity and scripting support to quality
-            checks, payment assistance, and long-term brand opportunities, we
-            make creator collaborations smoother, sharper, and more rewarding.
+            inventory. We match you with serious brands, give you the context
+            and support to do your best work, and build relationships that
+            compound beyond a single campaign.
+          </p>
+          <p className="text-text-light/70 max-w-3xl mb-8 text-md leading-relaxed">
+            From brief clarity and scripting support to quality checks, payment
+            assistance, and long-term brand opportunities, we make creator
+            collaborations smoother, sharper, and more rewarding.
           </p>
           <Button href="/creators" variant="primary">
             Join the Creator Network
@@ -82,11 +93,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={`${homeSection} bg-background-page`}>
+      <section data-nav-surface="page" className={`${homeSection} bg-background-page`}>
         <div className="container-page w-full">
-          <h2 className="text-3xl font-medium tracking-tightest mb-8">
+          <h2 className="text-3xl font-medium tracking-tightest mb-4">
             Insights
           </h2>
+          <p className="text-text-secondary max-w-3xl mb-12">
+            Reports, research, trends, and strategic thinking for the
+            influence-first brand era. Stay ahead of how creators, platforms,
+            and enterprise marketing are evolving, and what it means for your
+            next campaign.
+          </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {insights.map((i) => (
               <HomeInsightCard key={i.slug} insight={i} />

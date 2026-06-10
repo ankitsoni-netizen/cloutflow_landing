@@ -16,7 +16,7 @@ export default async function InsightsPage() {
         title="Intelligence for the influence-first brand era."
         subtitle="Reports, research, trends, platform insights, and strategic thinking from the team building the future of influencer marketing."
       />
-      <section className="section-y bg-background-page">
+      <section data-nav-surface="page" className="section-y bg-background-page">
         <div className="container-page">
           <InsightsGrid insights={insights} />
         </div>

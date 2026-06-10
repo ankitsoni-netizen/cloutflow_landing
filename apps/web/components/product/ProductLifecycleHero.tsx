@@ -2,7 +2,10 @@ import type { ProductLifecycleStep } from "@/lib/types";
 
 export function ProductLifecycleHero({ hero }: { hero: ProductLifecycleStep }) {
   return (
-    <section className="section-y-lg bg-background-blue text-text-light overflow-hidden">
+    <section
+      data-nav-surface="blue"
+      className="section-y-lg bg-background-blue text-text-light overflow-hidden"
+    >
       <div className="container-page">
         <div className="max-w-3xl">
           <p className="text-xs uppercase tracking-nav text-text-light/60 mb-4">

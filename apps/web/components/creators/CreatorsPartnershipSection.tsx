@@ -2,7 +2,10 @@ import { ScrollReveal } from "@/components/creators/ScrollReveal";
 
 export function CreatorsPartnershipSection() {
   return (
-    <section className="section-y relative overflow-hidden bg-background-blue text-text-light">
+    <section
+      data-nav-surface="blue"
+      className="section-y relative overflow-hidden bg-background-blue text-text-light"
+    >
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background-dark/30 via-transparent to-primary/25"
         aria-hidden

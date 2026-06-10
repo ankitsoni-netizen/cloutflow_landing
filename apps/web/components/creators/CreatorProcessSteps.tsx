@@ -26,6 +26,7 @@ export function CreatorProcessSteps() {
   return (
     <section
       id="journey"
+      data-nav-surface="dark"
       className={cn(
         creatorsSection,
         "bg-background-dark text-text-light overflow-hidden relative"

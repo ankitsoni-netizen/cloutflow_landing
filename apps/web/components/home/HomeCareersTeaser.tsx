@@ -9,6 +9,7 @@ export async function HomeCareersTeaser() {
 
   return (
     <section
+      data-nav-surface="dark"
       className={`${homeSection} bg-background-dark text-text-light`}
     >
       <div className="container-page w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">

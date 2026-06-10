@@ -11,11 +11,13 @@ export function ProductLifecycleSection({
   index: number;
 }) {
   const reversed = index % 2 === 1;
-  const bg = index % 2 === 0 ? "bg-background-page" : "bg-background-soft";
+  const isPage = index % 2 === 0;
+  const bg = isPage ? "bg-background-page" : "bg-background-soft";
 
   return (
     <section
       id={step.id}
+      data-nav-surface={isPage ? "page" : "soft"}
       className={cn("section-y scroll-mt-[132px]", bg)}
     >
       <div className="container-page" data-lifecycle-scroll-target>

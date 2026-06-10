@@ -33,7 +33,7 @@ export default async function LegalPage({
   if (!page) notFound();
 
   return (
-    <section className="section-y bg-background-page min-h-[50vh]">
+    <section data-nav-surface="page" className="section-y bg-background-page min-h-[50vh]">
       <div className="container-page max-w-3xl">
         <h1 className="text-3xl font-medium tracking-tightest">{page.title}</h1>
       </div>

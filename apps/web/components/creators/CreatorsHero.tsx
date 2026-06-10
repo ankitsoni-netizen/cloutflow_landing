@@ -13,7 +13,10 @@ const stats = [
 
 export function CreatorsHero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background-dark text-text-light">
+    <section
+      data-nav-surface="dark"
+      className="relative min-h-screen overflow-hidden bg-background-dark text-text-light"
+    >
       <CreatorsHeroBackground />
 
       <div className="container-page relative z-10 grid min-h-screen items-center gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16 lg:py-28">

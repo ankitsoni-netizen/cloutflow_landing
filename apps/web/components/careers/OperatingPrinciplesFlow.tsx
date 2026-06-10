@@ -220,16 +220,25 @@ export function OperatingPrinciplesFlow() {
   return (
     <CareersSection variant="principles">
       <div className="container-page w-full">
-        <div className="lg:grid lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-x-12 xl:gap-x-16 lg:items-start">
-          <h2 className="text-xl md:text-2xl font-medium tracking-tightest mb-6 lg:mb-0">
-            Operating principles
-          </h2>
+        <div className="lg:grid lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-x-14 xl:gap-x-20 lg:items-start">
+          <div className="mb-8 lg:mb-0 lg:pt-1">
+            <p className="text-xs uppercase tracking-nav text-text-muted mb-3">
+              How we decide
+            </p>
+            <h2 className="text-xl md:text-2xl font-medium tracking-tightest">
+              Operating principles
+            </h2>
+            <p className="mt-4 text-sm text-text-secondary leading-relaxed">
+              The instincts we expect when priorities compete and the answer is
+              not obvious.
+            </p>
+          </div>
 
-          <ol className="grid grid-cols-5 gap-x-2 sm:gap-x-4 md:gap-x-5 gap-y-0 list-none m-0 p-0">
+          <ol className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 sm:gap-x-5 md:gap-x-6 gap-y-2 list-none m-0 p-0">
             {operatingPrinciples.map((principle) => (
               <li
                 key={principle.id}
-                className="careers-reactive-cell border-t border-border-light py-3 md:py-4 rounded-sm"
+                className="careers-highlight-card careers-reactive-cell border-t border-border-light/80 py-4 md:py-5 rounded-sm"
               >
                 <PrincipleItem
                   label={principle.label}

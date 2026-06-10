@@ -19,6 +19,7 @@ export function PageHero({
 }) {
   return (
     <section
+      data-nav-surface={dark ? "blue" : "page"}
       className={cn(
         "section-y-lg min-h-[480px] flex items-center relative overflow-hidden",
         dark ? "bg-background-blue text-text-light" : "bg-background-page",

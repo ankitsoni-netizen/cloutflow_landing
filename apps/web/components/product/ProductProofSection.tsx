@@ -3,7 +3,11 @@ import type { ProductProofData } from "@/lib/types";
 
 export function ProductProofSection({ proof }: { proof: ProductProofData }) {
   return (
-    <section id="proof" className="section-y bg-background-dark text-text-light">
+    <section
+      id="proof"
+      data-nav-surface="dark"
+      className="section-y bg-background-dark text-text-light"
+    >
       <div className="container-page text-center max-w-4xl mx-auto">
         <p className="text-xs uppercase tracking-nav text-text-light/60 mb-3">
           Proof

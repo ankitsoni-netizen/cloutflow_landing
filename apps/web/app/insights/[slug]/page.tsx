@@ -35,7 +35,7 @@ export default async function InsightDetailPage({
     .slice(0, 3);
 
   return (
-    <article className="section-y bg-background-page">
+    <article data-nav-surface="page" className="section-y bg-background-page">
       <div className="container-page max-w-3xl">
         <p className="text-xs uppercase tracking-nav text-primary mb-2">
           {insight.category}

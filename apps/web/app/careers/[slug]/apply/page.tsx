@@ -24,7 +24,7 @@ export default async function JobApplyPage({
   if (!job) notFound();
 
   return (
-    <section className="section-y bg-background-page">
+    <section data-nav-surface="page" className="section-y bg-background-page">
       <div className="container-page max-w-xl">
         <Link href={`/careers/${slug}`} className="text-sm text-text-muted hover:text-primary mb-6 inline-block">
           ← Back to role

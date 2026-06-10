@@ -1,111 +1,211 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { creatorsSection } from "@/components/creators/creators-section";
-import { featuredCreators } from "@/data/featured-creators";
+import type { FeaturedCreatorReel } from "@/lib/creator-featured-reels";
+import { usernameFromOEmbedAuthor } from "@/lib/creator-featured-reels";
 import { cn } from "@/lib/cn";
 
-export function FeaturedTalentCarousel() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+type InstagramOEmbed = {
+  thumbnail_url?: string;
+  author_name?: string;
+  author_url?: string;
+};
 
-  const scroll = (dir: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.85;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
-  };
+type ReelMeta = {
+  thumbnailUrl: string | null;
+  videoUrl: string | null;
+  username: string | null;
+};
+
+async function fetchReelMeta(url: string): Promise<ReelMeta> {
+  try {
+    const apiRes = await fetch(
+      `/api/creators/instagram-meta?url=${encodeURIComponent(url)}`
+    );
+    if (apiRes.ok) {
+      const data = (await apiRes.json()) as {
+        thumbnailUrl?: string | null;
+        videoUrl?: string | null;
+        username?: string | null;
+      };
+      if (data.videoUrl || data.thumbnailUrl || data.username) {
+        return {
+          thumbnailUrl: data.thumbnailUrl ?? null,
+          videoUrl: data.videoUrl ?? null,
+          username: data.username ?? null,
+        };
+      }
+    }
+  } catch {
+    // fall through to direct oEmbed for thumbnail / username only
+  }
+
+  try {
+    const directRes = await fetch(
+      `https://api.instagram.com/oembed?url=${encodeURIComponent(url)}&omitscript=true&maxwidth=640`
+    );
+    if (directRes.ok) {
+      const data = (await directRes.json()) as InstagramOEmbed;
+      return {
+        thumbnailUrl: data.thumbnail_url ?? null,
+        videoUrl: null,
+        username: usernameFromOEmbedAuthor(data.author_url, data.author_name),
+      };
+    }
+  } catch {
+    // no metadata available
+  }
+
+  return { thumbnailUrl: null, videoUrl: null, username: null };
+}
+
+function PremiumReelCard({
+  reel,
+  meta,
+}: {
+  reel: FeaturedCreatorReel;
+  meta: ReelMeta | undefined;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const thumbnailUrl = meta?.thumbnailUrl ?? null;
+  const videoUrl = meta?.videoUrl ?? null;
+  const username = meta?.username ?? null;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoUrl) return;
+
+    const play = () => {
+      void video.play().catch(() => {
+        // Autoplay can be blocked until the element is visible.
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) play();
+        else video.pause();
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(video);
+    play();
+
+    return () => observer.disconnect();
+  }, [videoUrl]);
+
+  return (
+    <article className="creators-reel-card shrink-0 w-[280px]">
+      <Link
+        href={reel.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-2xl"
+        aria-label={
+          username
+            ? `Watch ${username} on Instagram`
+            : "Watch featured creator content on Instagram"
+        }
+      >
+        <div className="creators-reel-viewport relative aspect-[9/16] overflow-hidden rounded-2xl bg-black">
+          {thumbnailUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={thumbnailUrl}
+              alt=""
+              className="absolute inset-0 z-0 h-full w-full object-cover object-center"
+              aria-hidden
+            />
+          ) : (
+            <div
+              className="absolute inset-0 z-0 bg-gradient-to-br from-background-blue/80 via-background-dark to-primary/30"
+              aria-hidden
+            />
+          )}
+
+          {videoUrl ? (
+            <video
+              ref={videoRef}
+              src={videoUrl}
+              poster={thumbnailUrl ?? undefined}
+              className="creators-reel-video absolute inset-0 z-[1] h-full w-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden
+              tabIndex={-1}
+            />
+          ) : null}
+
+          <div
+            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/75 via-transparent to-black/25"
+            aria-hidden
+          />
+
+          {username ? (
+            <div className="pointer-events-none absolute bottom-4 left-4 z-[2]">
+              <span className="creators-reel-handle inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-3.5 py-2 text-sm font-medium tracking-tight text-white backdrop-blur-md">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-primary shadow-[0_0_10px_rgba(7,62,253,0.85)]" />
+                {username}
+              </span>
+            </div>
+          ) : null}
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export function FeaturedTalentCarousel({ reels }: { reels: FeaturedCreatorReel[] }) {
+  const track = [...reels, ...reels];
+  const [metaByUrl, setMetaByUrl] = useState<Record<string, ReelMeta>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void Promise.all(
+      reels.map(async (reel) => {
+        const meta = await fetchReelMeta(reel.url);
+        return [reel.url, meta] as const;
+      })
+    ).then((entries) => {
+      if (cancelled) return;
+      setMetaByUrl(Object.fromEntries(entries));
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [reels]);
 
   return (
     <section
       id="featured"
+      data-nav-surface="page"
       className={cn(creatorsSection, "bg-background-page overflow-hidden")}
     >
-      <div className="container-page mb-10 flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p className="font-label tracking-nav text-text-muted mb-2">
-            Featured
-          </p>
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tightest">
-            Profiles in the network
-          </h2>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => scroll("left")}
-            className="h-11 w-11 rounded-md border border-border-light hover:border-primary hover:text-primary transition-probe"
-            aria-label="Scroll left"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => scroll("right")}
-            className="h-11 w-11 rounded-md border border-border-light hover:border-primary hover:text-primary transition-probe"
-            aria-label="Scroll right"
-          >
-            →
-          </button>
-        </div>
+      <div className="container-page mb-10 max-w-3xl">
+        <p className="font-label tracking-nav text-text-muted mb-2">Featured</p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tightest">
+          Featured Content
+        </h2>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth px-[max(1.25rem,calc((100vw-1280px)/2+2.5rem))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {featuredCreators.map((creator) => (
-          <article
-            key={creator.id}
-            className="group relative shrink-0 w-[min(85vw,320px)] snap-start overflow-hidden rounded-md border border-border-light bg-background-soft creators-talent-card"
-          >
-            <div className="relative aspect-[3/4] overflow-hidden">
-              <Image
-                src={creator.image}
-                alt={creator.name}
-                fill
-                sizes="320px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-              <div className="absolute top-4 left-4">
-                <span className="font-label-sm tracking-nav text-white/70 bg-black/40 px-2 py-1 backdrop-blur-sm">
-                  {creator.category}
-                </span>
-              </div>
-              <div className="absolute bottom-0 inset-x-0 p-5">
-                <p className="font-label-sm text-primary mb-1">
-                  Social reach {creator.reach}
-                </p>
-                <h3 className="text-xl font-medium text-white tracking-tight">
-                  {creator.name}
-                </h3>
-                <p className="text-sm text-white/60 mt-0.5">{creator.handle}</p>
-              </div>
-            </div>
-            <div className="p-4 flex items-center justify-between gap-3 border-t border-border-light bg-background-page">
-              <div className="flex flex-wrap gap-2">
-                {creator.platforms?.map((p) => (
-                  <span
-                    key={p.name}
-                    className="font-label-sm text-text-muted"
-                  >
-                    {p.name} {p.followers}
-                  </span>
-                ))}
-              </div>
-              <Link
-                href="/creators/apply"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 text-xs uppercase tracking-nav text-primary font-medium opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
-              >
-                Add to network →
-              </Link>
-            </div>
-          </article>
-        ))}
+      <div className="creators-reel-marquee overflow-hidden w-full">
+        <div className="creators-reel-marquee-track flex w-max gap-6 py-2">
+          {track.map((reel, index) => (
+            <PremiumReelCard
+              key={`${reel.url}-${index}`}
+              reel={reel}
+              meta={metaByUrl[reel.url]}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

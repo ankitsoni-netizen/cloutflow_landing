@@ -1,84 +1,74 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FaqAccordion } from "@/components/help/FaqAccordion";
-import { HelpUseCaseMarquees } from "@/components/help/HelpUseCaseMarquees";
-import type { FaqItem } from "@/data/faqs";
-import { helpUseCases } from "@/data/help-use-cases";
+import type { FaqAudience, FaqItem } from "@/data/faqs";
+import { cn } from "@/lib/cn";
+
+const quickAccess: { id: FaqAudience; label: string }[] = [
+  { id: "brands", label: "For Brands" },
+  { id: "creators", label: "For Creators" },
+  { id: "agencies", label: "For Agencies" },
+];
 
 export function HelpFaqCenter({
   brandFaqs,
   creatorFaqs,
+  agencyFaqs,
 }: {
   brandFaqs: FaqItem[];
   creatorFaqs: FaqItem[];
+  agencyFaqs: FaqItem[];
 }) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = helpUseCases.find((u) => u.id === selectedId);
+  const [audience, setAudience] = useState<FaqAudience>("brands");
 
-  const onSelect = useCallback((id: string) => {
-    setSelectedId((prev) => {
-      const next = prev === id ? null : id;
-      if (next) {
-        requestAnimationFrame(() => {
-          document
-            .getElementById("faq-center")
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-      return next;
-    });
-  }, []);
+  const faqsByAudience: Record<FaqAudience, FaqItem[]> = {
+    brands: brandFaqs,
+    creators: creatorFaqs,
+    agencies: agencyFaqs,
+  };
+
+  const activeLabel =
+    quickAccess.find((item) => item.id === audience)?.label ?? "FAQs";
 
   return (
-    <>
-      <div className="help-marquee-viewport relative left-1/2 mb-14 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden">
-        <HelpUseCaseMarquees selectedId={selectedId} onSelect={onSelect} />
-      </div>
+    <div id="faq-center" className="scroll-mt-24">
+      <h2 className="text-2xl font-medium tracking-tightest mb-2">FAQ Center</h2>
+      <p className="text-sm text-text-secondary mb-6 max-w-2xl">
+        Quick access to answers by who you are. Select a category below.
+      </p>
 
-      <div id="faq-center" className="scroll-mt-24">
-        <h2 className="text-2xl font-medium tracking-tightest mb-2">FAQ Center</h2>
-        <p className="text-sm text-text-secondary mb-8 max-w-2xl">
-          Select a topic above to see how we solve it. General answers for brands
-          and creators are below.
-        </p>
-
-        {selected ? (
-          <article
-            className="relative mb-10 rounded-md border border-primary/30 bg-primary/[0.04] p-6 md:p-8"
-            aria-live="polite"
-          >
+      <div
+        className="flex flex-wrap gap-3 mb-10"
+        role="tablist"
+        aria-label="FAQ categories"
+      >
+        {quickAccess.map((item) => {
+          const isActive = audience === item.id;
+          return (
             <button
+              key={item.id}
               type="button"
-              onClick={() => setSelectedId(null)}
-              className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-md border border-border-light bg-background-page text-text-secondary transition-probe hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              aria-label="Close solution"
+              role="tab"
+              aria-selected={isActive}
+              aria-controls="faq-panel"
+              onClick={() => setAudience(item.id)}
+              className={cn(
+                "rounded-md border px-5 py-2.5 text-sm font-medium tracking-tight transition-probe focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                isActive
+                  ? "border-primary bg-primary text-text-light shadow-blue"
+                  : "border-border-light bg-background-page text-text-primary hover:border-primary/40 hover:text-primary"
+              )}
             >
-              <span aria-hidden className="text-lg leading-none">
-                ×
-              </span>
+              {item.label}
             </button>
-            <p className="text-xs uppercase tracking-nav text-primary mb-2 pr-10">
-              Solution
-            </p>
-            <h3 className="text-lg font-medium tracking-tight mb-3 pr-8">
-              {selected.label}
-            </h3>
-            <p className="text-sm text-text-secondary leading-relaxed">
-              {selected.solution}
-            </p>
-          </article>
-        ) : (
-          <p className="mb-10 text-sm text-text-muted">
-            Click any moving card to view the solution for that query here.
-          </p>
-        )}
-
-        <div className="grid lg:grid-cols-2 gap-12">
-          <FaqAccordion items={brandFaqs} label="For Brands" />
-          <FaqAccordion items={creatorFaqs} label="For Creators" />
-        </div>
+          );
+        })}
       </div>
-    </>
+
+      <div id="faq-panel" role="tabpanel" aria-label={activeLabel}>
+        <FaqAccordion items={faqsByAudience[audience]} label={activeLabel} />
+      </div>
+    </div>
   );
 }

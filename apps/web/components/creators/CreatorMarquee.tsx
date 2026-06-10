@@ -10,7 +10,10 @@ export function CreatorMarquee() {
   const track = [...labels, ...labels];
 
   return (
-    <div className="border-y border-border-light bg-background-page overflow-hidden py-5">
+    <div
+      data-nav-surface="page"
+      className="border-y border-border-light bg-background-page overflow-hidden py-5"
+    >
       <div className="flex w-max animate-creator-marquee gap-16">
         {track.map((label, i) => (
           <span

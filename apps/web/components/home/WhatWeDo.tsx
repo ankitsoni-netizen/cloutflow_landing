@@ -25,7 +25,7 @@ const cards = [
 
 export function WhatWeDo() {
   return (
-    <section className={`${homeSection} bg-background-soft`}>
+    <section data-nav-surface="soft" className={`${homeSection} bg-background-soft`}>
       <div className="container-page w-full">
         <h2 className="text-3xl font-medium tracking-tightest mb-4 max-w-2xl">
           We solve brand problems through influence.
@@ -40,7 +40,7 @@ export function WhatWeDo() {
           {cards.map((c) => (
             <div
               key={c.title}
-              className="border-t border-border-light py-8 md:pr-6"
+              className="py-8 md:pr-6"
             >
               <h3 className="text-lg font-medium tracking-tight mb-2 pl-3 border-l-2 border-primary/40">
                 {c.title}

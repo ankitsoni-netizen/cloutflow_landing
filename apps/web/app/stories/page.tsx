@@ -16,7 +16,7 @@ export default async function StoriesPage() {
         title="Stories of influence, built for business impact."
         subtitle="Explore how Cloutflow partners with brands to solve real marketing challenges through creators, culture, content, technology, and scale."
       />
-      <section className="section-y bg-background-page">
+      <section data-nav-surface="page" className="section-y bg-background-page">
         <div className="container-page">
           <StoriesGrid stories={stories} />
         </div>

@@ -50,7 +50,7 @@ export default async function StoryDetailPage({
   ];
 
   return (
-    <article className="section-y bg-background-page">
+    <article data-nav-surface="page" className="section-y bg-background-page">
       <div className="container-page max-w-3xl">
         <StoryBrandLogo
           brandName={story.brandName}

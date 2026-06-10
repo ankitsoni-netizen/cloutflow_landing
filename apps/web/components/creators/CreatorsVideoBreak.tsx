@@ -3,7 +3,10 @@ import { SocialLogoBackdrop } from "@/components/creators/SocialLogoBackdrop";
 
 export function CreatorsVideoBreak() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-secondary via-background-blue to-primary">
+    <section
+      data-nav-surface="blue"
+      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-secondary via-background-blue to-primary"
+    >
       <SocialLogoBackdrop />
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background-dark/50 via-background-blue/30 to-primary/20"

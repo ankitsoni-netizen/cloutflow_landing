@@ -22,6 +22,15 @@ const variantText: Record<CareersSectionVariant, string> = {
   roles: "text-text-light",
 };
 
+const navSurface: Record<CareersSectionVariant, string> = {
+  hero: "page",
+  philosophy: "soft",
+  values: "page",
+  principles: "principles",
+  life: "blue",
+  roles: "dark",
+};
+
 const ambientClass: Record<CareersSectionVariant, string> = {
   hero: "careers-ambient--hero",
   philosophy: "careers-ambient--philosophy",
@@ -49,6 +58,7 @@ export function CareersSection({
   return (
     <section
       id={id}
+      data-nav-surface={navSurface[variant]}
       className={cn(
         careersSection,
         "careers-band group/section relative overflow-hidden",
@@ -61,7 +71,14 @@ export function CareersSection({
         className={cn("careers-ambient", ambientClass[variant])}
         aria-hidden
       />
-      <div className="relative z-10 w-full">{body}</div>
+      <div
+        className={cn(
+          "relative z-10 w-full flex-1 flex flex-col",
+          variant === "life" ? "justify-start" : "justify-center"
+        )}
+      >
+        {body}
+      </div>
     </section>
   );
 }

@@ -3,7 +3,10 @@ import { PixelNetworkBackground } from "@/components/home/PixelNetworkBackground
 
 export function HomeHero() {
   return (
-    <section className="relative min-h-screen snap-start flex items-end overflow-hidden bg-background-page">
+    <section
+      data-nav-surface="page"
+      className="relative min-h-screen snap-start flex items-end overflow-hidden bg-background-page"
+    >
       <PixelNetworkBackground />
       <div
         className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-white/15 via-transparent to-background-page"

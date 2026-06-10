@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Cloutflow OS",
   description:
-    "The operating system for influencer marketing, discovery to ROI. Atlas Discovery, CloutIQ, Pricing Desk, Campaign OS, Guardian QC, and analytics in one connected lifecycle.",
+    "The operating system for influencer marketing — discovery to ROI. Atlas Discovery, CloutIQ, Pricing Desk, Campaign OS, Guardian QC, and analytics in one connected lifecycle.",
 };
 
 export default function ProductPage() {

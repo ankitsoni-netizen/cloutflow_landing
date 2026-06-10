@@ -303,7 +303,7 @@ function ExploreCloutflowOsCtaInk({
 }
 
 export function ExploreCloutflowOsCta({
-  inkEffect = true,
+  inkEffect = false,
   ...props
 }: {
   href?: string;

@@ -46,7 +46,7 @@ export default async function JobDetailPage({
     );
 
   return (
-    <article className="section-y bg-background-page">
+    <article data-nav-surface="page" className="section-y bg-background-page">
       <div className="container-page max-w-3xl">
         <p className="text-xs uppercase tracking-nav text-text-muted mb-2">
           {job.department} · {job.location} · {job.experience} · {job.workType}

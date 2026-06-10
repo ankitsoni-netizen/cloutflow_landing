@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function HelpPage() {
   const brandFaqs = faqs.filter((f) => f.audience === "brands");
   const creatorFaqs = faqs.filter((f) => f.audience === "creators");
+  const agencyFaqs = faqs.filter((f) => f.audience === "agencies");
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function HelpPage() {
         title="How can we help you?"
         subtitle="Find answers, track campaign progress, explore the Cloutflow product, get creator support, or connect with the right team."
       />
-      <section className="section-y bg-background-page overflow-x-hidden">
+      <section data-nav-surface="page" className="section-y bg-background-page overflow-x-hidden">
         <div className="container-page mb-12">
           <input
             type="search"
@@ -33,12 +34,17 @@ export default function HelpPage() {
         </div>
 
         <div className="container-page">
-          <HelpFaqCenter brandFaqs={brandFaqs} creatorFaqs={creatorFaqs} />
+          <HelpFaqCenter
+            brandFaqs={brandFaqs}
+            creatorFaqs={creatorFaqs}
+            agencyFaqs={agencyFaqs}
+          />
         </div>
       </section>
 
       <section
         id="contact-support"
+        data-nav-surface="dark"
         className="section-y w-full bg-background-dark text-text-light"
       >
         <div className="container-page w-full max-w-none">

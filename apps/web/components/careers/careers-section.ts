@@ -1,2 +1,2 @@
-/** Content-height vertical rhythm on the careers page (not full viewport). */
-export const careersSection = "py-12 md:py-14";
+/** Tall vertical bands on the careers page — not full horizontal bleed. */
+export const careersSection = "py-16 md:py-20 lg:py-24";

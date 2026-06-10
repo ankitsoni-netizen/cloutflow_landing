@@ -6,7 +6,10 @@ export function CreatorCategoryRail() {
   const items = [...creatorCategories, ...creatorCategories];
 
   return (
-    <div className="border-y border-white/10 bg-background-dark py-5 overflow-hidden">
+    <div
+      data-nav-surface="dark"
+      className="border-y border-white/10 bg-background-dark py-5 overflow-hidden"
+    >
       <div className="flex w-max animate-creator-marquee-reverse gap-8 px-4">
         {items.map((cat, i) => (
           <span

@@ -7,9 +7,11 @@ import { cn } from "@/lib/cn";
 export function LinkedInPostEmbed({
   post,
   className,
+  compact = false,
 }: {
   post: LifeAtCloutflowPost;
   className?: string;
+  compact?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
@@ -17,7 +19,8 @@ export function LinkedInPostEmbed({
     return (
       <div
         className={cn(
-          "flex min-h-[320px] flex-col items-center justify-center gap-4 rounded-md border border-white/15 bg-background-dark/50 p-8 text-center",
+          "flex flex-col items-center justify-center gap-3 rounded-lg border border-white/15 bg-background-dark/50 p-6 text-center",
+          compact ? "min-h-[300px]" : "min-h-[320px]",
           className
         )}
       >
@@ -35,11 +38,22 @@ export function LinkedInPostEmbed({
   }
 
   return (
-    <div className={cn("overflow-hidden rounded-md border border-white/10 bg-white", className)}>
+    <div
+      className={cn(
+        "overflow-hidden rounded-lg border border-white/10 bg-white",
+        compact && "careers-linkedin-embed-viewport",
+        className
+      )}
+    >
       <iframe
         src={post.embedSrc}
         title={post.title}
-        className="h-[min(560px,80vh)] w-full border-0"
+        className={cn(
+          "w-full border-0",
+          compact
+            ? "careers-linkedin-embed-iframe"
+            : "h-[min(560px,80vh)]"
+        )}
         loading="lazy"
         allowFullScreen
         onError={() => setFailed(true)}

@@ -18,7 +18,10 @@ export function FinalCta({
     : actions;
 
   return (
-    <section className="section-y bg-secondary text-text-light relative overflow-hidden">
+    <section
+      data-nav-surface="secondary"
+      className="section-y bg-secondary text-text-light relative overflow-hidden"
+    >
       <div className="absolute inset-0 opacity-20 bg-primary/30 translate-x-1/4" />
       <div className="container-page relative z-10 text-center max-w-3xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-medium tracking-tightest mb-8">

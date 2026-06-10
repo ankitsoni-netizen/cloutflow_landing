@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function CreatorsApplyPage() {
   return (
-    <section className="section-y bg-background-soft">
+    <section data-nav-surface="soft" className="section-y bg-background-soft">
       <div className="container-page">
         <div className="mx-auto max-w-lg">
           <p className="font-label text-xs uppercase tracking-nav text-primary mb-2">

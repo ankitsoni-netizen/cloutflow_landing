@@ -3,6 +3,7 @@ import { Geist_Mono, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CLOUTFLOW_FAVICON_URL } from "@/lib/brand";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,11 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "Cloutflow",
     type: "website",
+  },
+  icons: {
+    icon: CLOUTFLOW_FAVICON_URL,
+    shortcut: CLOUTFLOW_FAVICON_URL,
+    apple: CLOUTFLOW_FAVICON_URL,
   },
 };
 

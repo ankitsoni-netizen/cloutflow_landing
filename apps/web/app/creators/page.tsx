@@ -3,6 +3,7 @@ import { CreatorsHero } from "@/components/creators/CreatorsHero";
 import { CreatorMarquee } from "@/components/creators/CreatorMarquee";
 import { CreatorCategoryRail } from "@/components/creators/CreatorCategoryRail";
 import { FeaturedTalentCarousel } from "@/components/creators/FeaturedTalentCarousel";
+import { getFeaturedCreatorReels } from "@/lib/creator-featured-reels";
 import { CreatorsVideoBreak } from "@/components/creators/CreatorsVideoBreak";
 import { CreatorProcessSteps } from "@/components/creators/CreatorProcessSteps";
 import { CreatorsPartnershipSection } from "@/components/creators/CreatorsPartnershipSection";
@@ -50,14 +51,17 @@ const earnings = [
 ];
 
 export default function CreatorsPage() {
+  const featuredReels = getFeaturedCreatorReels();
+
   return (
     <>
       <CreatorsHero />
       <CreatorCategoryRail />
       <CreatorMarquee />
-      <FeaturedTalentCarousel />
+      <FeaturedTalentCarousel reels={featuredReels} />
 
       <section
+        data-nav-surface="page"
         className={cn(
           creatorsSection,
           "bg-background-page relative overflow-hidden"

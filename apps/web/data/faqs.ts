@@ -1,7 +1,9 @@
+export type FaqAudience = "brands" | "creators" | "agencies";
+
 export interface FaqItem {
   question: string;
   answer: string;
-  audience: "brands" | "creators";
+  audience: FaqAudience;
 }
 
 export const faqs: FaqItem[] = [
@@ -52,5 +54,29 @@ export const faqs: FaqItem[] = [
     question: "Do you support regional campaigns?",
     answer:
       "Yes. We run regional creator pods with localized briefs and central compliance guardrails.",
+  },
+  {
+    audience: "agencies",
+    question: "How do agencies partner with Cloutflow?",
+    answer:
+      "Agencies can run client campaigns on Cloutflow OS with shared workspaces, reporting exports, and dedicated pod support for planning and execution.",
+  },
+  {
+    audience: "agencies",
+    question: "Can we manage multiple brand accounts?",
+    answer:
+      "Yes. Agency teams get multi-client access with role-based permissions, separate campaign views, and consolidated reporting per brand.",
+  },
+  {
+    audience: "agencies",
+    question: "How does billing work for agency-led campaigns?",
+    answer:
+      "Commercials and invoicing can be structured per client or consolidated for the agency. Raise a payments query with client and campaign references.",
+  },
+  {
+    audience: "agencies",
+    question: "Do you support white-label or co-branded reporting?",
+    answer:
+      "Campaign dashboards and exports can be tailored for client presentations. Contact agency support with your reporting format needs.",
   },
 ];

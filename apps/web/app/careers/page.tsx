@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CareersCoreValues } from "@/components/careers/CareersCoreValues";
 import { CareersHeroActions } from "@/components/careers/CareersHeroActions";
+import { CareersHeroSignals } from "@/components/careers/CareersHeroSignals";
 import { HiringPhilosophy } from "@/components/careers/HiringPhilosophy";
 import { LifeAtCloutflow } from "@/components/careers/LifeAtCloutflow";
 import { OpenRolesList } from "@/components/careers/OpenRolesList";
@@ -24,7 +25,7 @@ export default async function CareersPage() {
       <PageHero
         className={cn(
           careersSection,
-          "careers-band careers-band--hero group/section min-h-0 bg-transparent py-12 md:py-16"
+          "careers-band careers-band--hero group/section bg-transparent"
         )}
         decoration={
           <div className="careers-ambient careers-ambient--hero" aria-hidden />
@@ -32,7 +33,10 @@ export default async function CareersPage() {
         title="Build the company shaping the future of influence."
         subtitle="At Cloutflow we build at the intersection of culture, creators, technology, and brand growth. We move fast, think deeply, execute sharply, and solve real marketing problems every day."
       >
-        <CareersHeroActions />
+        <div className="w-full space-y-8">
+          <CareersHeroSignals />
+          <CareersHeroActions />
+        </div>
       </PageHero>
 
       <HiringPhilosophy />
@@ -44,9 +48,19 @@ export default async function CareersPage() {
       <LifeAtCloutflow />
 
       <CareersSection variant="roles" id="roles">
-        <div className="container-page">
-          <div data-scroll-target>
-            <h2 className="text-2xl font-medium tracking-tightest mb-6">Open roles</h2>
+        <div className="container-page max-w-4xl">
+          <div className="mb-10 md:mb-12" data-scroll-target>
+            <p className="text-xs uppercase tracking-nav text-text-light/60 mb-3">
+              Join the team
+            </p>
+            <h2 className="text-2xl md:text-3xl font-medium tracking-tightest mb-3">
+              Open roles
+            </h2>
+            <p className="text-sm text-text-light/70 leading-relaxed max-w-xl">
+              We hire builders across product, revenue, operations, and creator
+              partnerships. If you do not see a fit, reach out — we are always
+              meeting sharp people.
+            </p>
           </div>
           <OpenRolesList jobs={jobs} />
         </div>

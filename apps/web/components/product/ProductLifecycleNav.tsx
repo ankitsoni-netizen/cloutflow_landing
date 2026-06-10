@@ -113,8 +113,9 @@ export function ProductLifecycleNav({
   return (
     <nav
       data-product-lifecycle-nav
+      data-nav-surface="page"
       aria-label="Campaign lifecycle steps"
-      className="sticky top-[72px] z-30 border-b border-border-light bg-background-page/95 backdrop-blur-sm"
+      className="sticky top-[80px] z-30 border-b border-border-light bg-background-page/95 backdrop-blur-sm"
     >
       <div className="container-page py-3">
         <div
